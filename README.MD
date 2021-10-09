@@ -1,0 +1,1 @@
+This is a introduction to the basics of sql using sqlite in python.
