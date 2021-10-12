@@ -19,6 +19,7 @@ with sqlite3.connect("cars.db") as conn:
         ("Toyota", "Tundra", "2020-12-24"),
         ("Toyota", "Tundra", "2021-12-01"),
         ("Toyota", "Tundra", "2019-24-24"),
+        ("Toyota", "Tundra", "2022-24-24"),
         ("Toyota", "Corolla", "2014-05-18"),
         ("Toyota", "Corolla", "2017-03-15"),
         ("Toyota", "Corolla", "2015-04-11"),
@@ -49,11 +50,16 @@ with sqlite3.connect("cars.db") as conn:
     )
 
     rows = cursor.fetchall()
-
+    c = 0
+    model = ""
     for row in rows:
-        print(f"Make: {row[0]} Model: {row[1]}")
-        print(f"Quantity: {row[2]}")
-        print(f"Order_date: {row[3]}\n")
-        
-        
-    
+        # print only the order_dates for each model until the model is changes
+        if model == row[1]:
+            print(f"Order_date: {row[3]}")
+            model = row[1]
+        else:
+            c += 1
+            print(f"\n{c}-Make: {row[0]} Model: {row[1]}")
+            print(f"Quantity: {row[2]}")
+            print(f"Order_date: {row[3]}")
+            model = row[1]
